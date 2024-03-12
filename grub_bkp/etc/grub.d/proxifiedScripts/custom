@@ -1,0 +1,35 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+menuentry "Windows 11" --class windows --class os $menuentry_id_option 'osprober-efi-64F7-DA02' {
+	insmod part_gpt
+	insmod fat
+	search --no-floppy --fs-uuid --set=root 64F7-DA02
+	chainloader /efi/Microsoft/Boot/bootmgfw.efi
+}
+menuentry "Arch | Single User" --class recovery --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-c5463f03-6d63-4934-89a1-538b7b55ce31' {
+		load_video
+		set gfxpayload=keep
+		insmod gzio
+		insmod part_gpt
+		insmod fat
+		search --no-floppy --fs-uuid --set=root 3BF7-4651
+		echo	'Loading Linux linux ...'
+		linux	/vmlinuz-linux root=UUID=c5463f03-6d63-4934-89a1-538b7b55ce31 rw  loglevel=3 quiet single
+		echo	'Loading initial ramdisk ...'
+		initrd	/intel-ucode.img /initramfs-linux.img
+}
+menuentry "Arch Linux" --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-c5463f03-6d63-4934-89a1-538b7b55ce31' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_gpt
+	insmod fat
+	search --no-floppy --fs-uuid --set=root 3BF7-4651
+	echo	'Loading Linux linux ...'
+	linux	/vmlinuz-linux root=UUID=c5463f03-6d63-4934-89a1-538b7b55ce31 rw  loglevel=3 quiet
+	echo	'Loading initial ramdisk ...'
+	initrd	/intel-ucode.img /initramfs-linux.img
+}

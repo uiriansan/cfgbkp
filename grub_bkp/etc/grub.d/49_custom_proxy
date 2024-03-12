@@ -1,0 +1,8 @@
+#!/bin/sh
+#THIS IS A GRUB PROXY SCRIPT
+'/etc/grub.d/proxifiedScripts/custom' | /etc/grub.d/bin/grubcfg_proxy "+*
++#text
+-'Windows 11'~5883174335513ee5d800535665eb5d7a~ as 'Windows Boot Manager (on /dev/nvme0n1p1)'
+-'Arch | Single User'~ef8453cfc896b0902839b1b7a643126d~ as 'Arch Linux, with Linux linux'
+-'Arch Linux'~b03ac5fe742302e18bbd6a870db309ae~
+"
